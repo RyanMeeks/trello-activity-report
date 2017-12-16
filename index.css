@@ -95,11 +95,11 @@ body {
 }
 
 .purple-border {
-  border-bottom: 5px solid rgb(179, 13, 179);
+  border-bottom: 5px solid #522398;
 }
 
 .purple-text {
-  color: rgb(179, 13, 179);
+  color: #522398;
 }
 
 .text-sm {

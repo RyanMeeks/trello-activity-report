@@ -116,22 +116,22 @@
         <legend style="display: hidden">Date Filter</legend>
         <div class="from"> 
           <label for="from">From: </label>
-         <input class="date" id="start-date" type="date" value="date" aria-label="from-date" style="float: right">
+         <input class="date" id="js-start-date" type="date" value="date" aria-label="from-date" style="float: right">
         </div>
         
         <div class="to">
           <label for="to">To: </label>
-          <input class="date" id="end-date" type="date" aria-label="end-date" style="float: right">
+          <input class="date" id="js-end-date" type="date" value="date" aria-label="end-date" style="float: right">
         </div>
       </form>
       <p><strong>Quick Filters</strong></p>
       <div class="quick-filters">
-        <button type="button" class="btn btn-primary m-2">All Time</button>
-        <button type="button" class="btn btn-primary m-2">Yesterday</button>
-        <button type="button" class="btn btn-primary m-2">Last 7 Days</button>
-        <button type="button" class="btn btn-primary m-2">Last 30 Days</button>
-        <button type="button" class="btn btn-primary m-2">Last 6 Months</button>
-        <button type="button" class="btn btn-secondary m-2">Clear Filter</button>
+        <button id="js-all-time" type="button" class="btn btn-primary m-2">All Time</button>
+        <button id="js-yesterday" type="button" class="btn btn-primary m-2">Yesterday</button>
+        <button id="js-last7Days" type="button" class="btn btn-primary m-2">Last 7 Days</button>
+        <button id="js-last30Days" type="button" class="btn btn-primary m-2">Last 30 Days</button>
+        <button id="js-last6Months" type="button" class="btn btn-primary m-2">Last 6 Months</button>
+        <button id="js-clearFilter" type="button" class="btn btn-secondary m-2">Clear Filter</button>
       </div>
     </aside>
   </main>
