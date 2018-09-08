@@ -8,11 +8,12 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
   integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="index.css" type="text/css">
+  <script src="index.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <title>Trello Activity Report</title>
 </head>
 <body>
-  <header class="shadow" style="background: black"><img class="offset-1" style="width:100px"src="https://i0.wp.com/tgrayimages.com/wp-content/uploads/hub.png?resize=530%2C318"/></header>
+  <header style="background: black"><img class="offset-1" style="width:100px"src="https://i0.wp.com/tgrayimages.com/wp-content/uploads/hub.png?resize=530%2C318"/></header>
   <nav class="purple-border navbar navbar-expand-lg navbar-light bg-light shadow">
       <h2 class="offset-1">Trello Activity Report</h2>
   </nav>
@@ -112,10 +113,10 @@
       <p><strong>Filters</strong></p>
       <div class="date-container">
         <div class="from">
-          From: <input class="date" id="from-date" type="date" aria-label="from-date" style="float: right">
+          From: <input class="date" id="start-date" type="date" aria-label="from-date" style="float: right">
         </div>
         <div class="to">
-          To: <input class="date" id="to-date" type="date" aria-label="end-date" style="float: right">
+          To: <input class="date" id="end-date" type="date" aria-label="end-date" style="float: right">
         </div>
       </div>
       <p><strong>Quick Filters</strong></p>
