@@ -115,60 +115,8 @@ const dateFilters = {
       let year = currentDate.getFullYear();
       let month = currentDate.getMonth() + 1;
       let date = currentDate.getDate();
-      if (date < 7) {
-        if (month === 12) {
-          date = 30 - 6 + date;
-          month--;
-        }
-        else if (month === 11) {
-          date = 31 - 6 + date;
-          month--;
-        }
-        else if (month === 10) {
-          date = 30 - 6 + date;
-          month--;
-        }
-        else if (month === 9) {
-          date = 31 - 6 + date;
-          month--;
-        }
-        else if (month === 8) {
-          date = 31 - 6 + date;
-          month--;
-        }
-        else if (month === 7) {
-          date = 30 - 6 + date;
-          month--;
-        }
-        else if (month === 6) {
-          date = 31 - 6 + date;
-          month--;
-        }
-        else if (month === 5) {
-          date = 30 - 6 + date;
-          month--;
-        }
-        else if (month === 4) {
-          date = 31 - 6 + date;
-          month--;
-        }
-        else if (month === 3) {
-          (year % 4 === 0) ? date = 29 - 6 + date : date = 28 - 6;
-          month--;
-        }
-        else if (month === 2) {
-          date = 31 - 6 + date;
-          month--;//leap year
-        }
-        else if (month === 1) {
-          date = 31 - 6 + date;
-          year = year--;
-          month = 12;
-        }
-      } else {
-        date = date - 6;
-      }
-
+      let newDate = moment().subtract(180, 'days').calendar()
+      console.log(newDate);
       const dateMinus7 = (date < 30) ? ('0' + date).slice(-2) : date;
       const parseMonth = dateFilters.parseData.parseMonth(month)
       
@@ -178,10 +126,10 @@ const dateFilters = {
       dateFilters.displayDate();
     })
   },
-  last30DaysFilter: function() {//NEEDS WORK
+  last30DaysFilter: function() {
     $('#js-last30Days').on('click', function() {
       const currentDate = new Date();
-      const year = currentDate.getFullYear();
+      let year = currentDate.getFullYear();
       let date = currentDate.getDate();
       let month = currentDate.getMonth() + 1;
       if (date < 30) {
@@ -230,7 +178,7 @@ const dateFilters = {
           month--;
         }
         else if (month === 1) {
-          date = 31 - 30 + date;
+          date = 31 - 29 + date;
           month = 12;
           year--;
         }
@@ -242,9 +190,33 @@ const dateFilters = {
       dateFilters.displayDate();
     })
   },
+  last6MonthsFilter: () => {
+    $('#js-last6Months').on('click', function() {
+      const fullCurrentDate = moment().format('L');
+      const endingYear = fullCurrentDate.slice(6, 10);
+      const endingMonth = fullCurrentDate.slice(0, 2);
+      const endingDate = fullCurrentDate.slice(3, 5);
+      
+      const fullStartDate = moment().subtract(180, 'days').calendar();
+      const startingYear = fullStartDate.slice(6, 10);
+      const startingMonth = fullStartDate.slice(0, 2);
+      const startingDate = fullStartDate.slice(3, 5);
+      
+      dateFilters.date.startDate = "start/" + startingYear + "-" + startingMonth + "-" + startingDate + "/";
+      dateFilters.date.endDate = "end/" + endingYear + "-" + endingMonth + "-" + endingDate;
+      dateFilters.displayDate();
+    })
+  },
   parseData: {
     parseMonth: function(month) {return (month < 10) ? ('0' + month).slice(-2) : month;},
-    parseDate: function(date) {return (date < 10) ? ('0' + date).slice(-2) : date;}
+    parseDate: function(date) {return (date < 10) ? ('0' + date).slice(-2) : date;} 
+  },
+  clearFilter: function() {
+    $('#js-clearFilter').on('click', function() {
+      console.log("clear Filter works")
+      $("input[type=date]").val("");
+    })
+    
   }
 }
 
@@ -256,5 +228,6 @@ function runOnOpen() {
   dateFilters.last7DaysFilter();
   dateFilters.last30DaysFilter();
   dateFilters.last6MonthsFilter();
+  dateFilters.clearFilter();
 }
 (runOnOpen());
