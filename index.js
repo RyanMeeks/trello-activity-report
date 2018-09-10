@@ -62,6 +62,7 @@ const dateFilters = {
       $('#js-pick-another').hide();
     }
     $('button').removeClass('btn-outline-primary')
+    dateFilters.loaderCircleFunctions();
     dateFilters.tileFiltersFunctions.activeMemberCount(start, end);
     dateFilters.tileFiltersFunctions.licensedMemberCount(start, end);
     dateFilters.tileFiltersFunctions.inactiveMemberCount(start, end);
@@ -80,6 +81,7 @@ const dateFilters = {
     $('#js-all-time').on('click', function() {
       $('button').removeClass('btn-outline-primary')
       $('#js-all-time').addClass('btn-outline-primary');
+      dateFilters.loaderCircleFunctions();
       const fullCurrentDate = moment().format('L');
       const anotherDate = moment().format('L');
       const endingYear = fullCurrentDate.slice(6, 10);
@@ -91,7 +93,7 @@ const dateFilters = {
 
       $("input[type=date]").val("");
       dateFilters.displayDate();
-      dateFilters.dateRangeDisplay();
+      dateFilters.dateRangeDisplay();//promise all
       dateFilters.tileFiltersFunctions.activeMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
       dateFilters.tileFiltersFunctions.licensedMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
       dateFilters.tileFiltersFunctions.inactiveMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
@@ -105,6 +107,7 @@ const dateFilters = {
     $('#js-yesterday').on('click', function() {
       $('button').removeClass('btn-outline-primary')
       $('#js-yesterday').addClass('btn-outline-primary');
+      dateFilters.loaderCircleFunctions();
       const todaysDate = new Date();
       const yesterdaysDate = moment(todaysDate, 'YYYY/MM/DD').subtract(1, 'days')._d
       let yesterdayMonth = yesterdaysDate.getMonth()+1;
@@ -135,6 +138,7 @@ const dateFilters = {
     $('#js-last7Days').on('click', function() {
       $('button').removeClass('btn-outline-primary')
       $('#js-last7Days').addClass('btn-outline-primary');
+      dateFilters.loaderCircleFunctions();
       const fullCurrentDate = moment().format('L');
       const endingYear = fullCurrentDate.slice(6, 10);
       const endingMonth = fullCurrentDate.slice(0, 2);
@@ -163,6 +167,7 @@ const dateFilters = {
     $('#js-last30Days').on('click', function() {
       $('button').removeClass('btn-outline-primary')
       $('#js-last30Days').addClass('btn-outline-primary');
+      dateFilters.loaderCircleFunctions();
       const fullCurrentDate = moment().format('L');
       const endingYear = fullCurrentDate.slice(6, 10);
       const endingMonth = fullCurrentDate.slice(0, 2);
@@ -189,8 +194,10 @@ const dateFilters = {
   },
   last6MonthsFilter: () => {
     $('#js-last6Months').on('click', function() {
-      $('button').removeClass('btn-outline-primary')
+      dateFilters.loaderCircleFunctions();
+      $('button').removeClass('btn-outline-primary');
       $('#js-last6Months').addClass('btn-outline-primary');
+
       const fullCurrentDate = moment().format('L');
       const endingYear = fullCurrentDate.slice(6, 10);
       const endingMonth = fullCurrentDate.slice(0, 2);
@@ -206,6 +213,8 @@ const dateFilters = {
       $("input[type=date]").val("");
       dateFilters.displayDate();
       dateFilters.dateRangeDisplay();
+      
+
       dateFilters.tileFiltersFunctions.activeMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
       dateFilters.tileFiltersFunctions.licensedMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
       dateFilters.tileFiltersFunctions.inactiveMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
@@ -223,11 +232,14 @@ const dateFilters = {
   },
   tileFiltersFunctions: {
     activeMemberCount: function(start, end) {
+      $('#js-members').empty();
       const settings = ({
         url: `${API_TILES_CALL}activeMemberCount/${start}${end}`,
         type: 'GET',
         success: function(data){
           $('#js-members').html(`<h2>${data.activeMemberCount}</h2>`)
+          $('#js-members').removeClass("loader")
+
         },
         error: function(e) {
           console.log("error retrieving data");
@@ -236,11 +248,14 @@ const dateFilters = {
       $.ajax(settings)
     },
     licensedMemberCount: function(start, end) {
+      $('#js-licensed-users').empty();
       const settings = ({
         url: `${API_TILES_CALL}licensedMemberCount/${start}${end}`,
         type: 'GET',
         success: function(data){
-          $('#js-licensed-users').html(`<h2>${data.licensedMemberCount}</h2>`)
+          $('#js-licensed-users').html(`<h2>${data.licensedMemberCount}</h2>`);
+          $('#js-licensed-users').removeClass("loader");
+
         },
         error: function(e) {
           console.log("error retrieving data");
@@ -249,11 +264,14 @@ const dateFilters = {
       $.ajax(settings)
     },
     inactiveMemberCount: function(start, end) {
+      $('#js-inactive-users').empty();
       const settings = ({
         url: `${API_TILES_CALL}inactiveMemberCount/${start}${end}`,
         type: 'GET',
         success: function(data){
-          $('#js-inactive-users').html(`<h2>${data.inactiveMemberCount}</h2>`)
+          $('#js-inactive-users').html(`<h2>${data.inactiveMemberCount}</h2>`);
+          $('#js-inactive-users').removeClass("loader");
+
         },
         error: function(e) {
           console.log("error retrieving data");
@@ -262,11 +280,14 @@ const dateFilters = {
       $.ajax(settings)
     },
     deletedBoardCount: function(start, end) {
+      $('#js-deleted-boards').empty();
       const settings = ({
         url: `${API_TILES_CALL}deletedBoardCount/${start}${end}`,
         type: 'GET',
         success: function(data){
-          $('#js-deleted-boards').html(`<h2>${data.deletedBoardCount}</h2>`)
+          $('#js-deleted-boards').html(`<h2>${data.deletedBoardCount}</h2>`);
+          $('#js-deleted-boards').removeClass("loader");
+
         },
         error: function(e) {
           console.log("error retrieving data");
@@ -275,11 +296,14 @@ const dateFilters = {
       $.ajax(settings)
     },
     activeBoardCount: function(start, end) {
+      $('#js-active-boards').empty();
       const settings = ({
         url: `${API_TILES_CALL}activeBoardCount/${start}${end}`,
         type: 'GET',
         success: function(data){
-          $('#js-active-boards').html(`<h2>${data.activeBoardCount}</h2>`)
+          const active = $('#js-active-boards').html(`<h2>${data.activeBoardCount}</h2>`);
+          $('#js-active-boards').removeClass("loader");
+
         },
         error: function(e) {
           console.log("error retrieving data");
@@ -288,11 +312,14 @@ const dateFilters = {
       $.ajax(settings)
     },
     archivedBoardCount: function(start, end) {
+      $('#js-archived-boards').empty();
       const settings = ({
         url: `${API_TILES_CALL}archivedBoardCount/${start}${end}`,
         type: 'GET',
         success: function(data){
           $('#js-archived-boards').html(`<h2>${data.archivedBoardCount}</h2>`)
+          $('#js-archived-boards').removeClass("loader");
+
         },
         error: function(e) {
           console.log("error retrieving data");
@@ -300,6 +327,15 @@ const dateFilters = {
       })
       $.ajax(settings)
     }
+  },
+  loaderCirlceFunctions: function () {
+    $('#js-members').addClass("loader");
+    $('#js-licensed-users').addClass("loader");
+    $('#js-inactive-users').addClass("loader");
+    $('#js-deleted-boards').addClass("loader");
+    $('#js-active-boards').addClass("loader");
+    $('#js-archived-boards').addClass("loader");
+    
   },
   actionCounts: function(start, end) {
     const settings = ({
@@ -317,7 +353,7 @@ const dateFilters = {
         </tr>
         <tr>
           <th scope="row">Cards Moved</th>
-          <td style="text-align:right">${data.actionCounts.moveCardFromBoard + data.actionCounts.moveCardToBoard}</td>
+          <td style="text-align:right">${data.actionCounts.moveCardFromBoard}</td>
         </tr>
         <tr>
           <th scope="row">Cards Duplicated</th>
@@ -337,7 +373,7 @@ const dateFilters = {
         </tr>
         <tr>
           <th scope="row">Lists Moved</th>
-          <td style="text-align:right">${data.actionCounts.moveListFromBoard + data.actionCounts.moveListToBoard}</td>
+          <td style="text-align:right">${data.actionCounts.moveListFromBoard}</td>
         </tr>
         <tr>
           <th scope="row">Lists Duplicated</th>
@@ -355,10 +391,10 @@ const dateFilters = {
           <th scope="row">Unique Labels</th>
           <td style="text-align:right">${data.actionCounts.updateList}</td>
         </tr>
-        
         `
-        $("#js-activity-table").html(`${table}`)
-        
+        Promise.all([table]).then(function(values) {
+          $("#js-activity-table").html(`${table}`)
+        });
       },
       error: function(e) {
         console.log("error retrieving data");
@@ -369,7 +405,6 @@ const dateFilters = {
   dateRangeDisplay: function() {
     const startDate = this.date.startDate;
     const endDate = this.date.endDate;
-    
     const startingDate = startDate.slice(14, 16);
     const startingMonth = startDate.slice(11, 13);
     const startingYear = startDate.slice(6, 10);
@@ -379,20 +414,21 @@ const dateFilters = {
     const endingMonth = endDate.slice(9, 11);
     const endingYear = endDate.slice(4, 8);
     const endingString = endingMonth + "-" + endingDate + "-" + endingYear;
-
+    console.log(startingString)
     $(".js-start-date-range").html(`<span>${startingString}</span>`);
     $(".js-end-date-range").html(`<span>${endingString}</span>`);
   },
   startAllTimeFilter: function () {
     $('button').removeClass('btn-outline-primary');
     $('#js-all-time').addClass('btn-outline-primary');
+    
     const fullCurrentDate = moment().format('L');
     const endingYear = fullCurrentDate.slice(6, 10);
     const endingMonth = fullCurrentDate.slice(0, 2);
     const endingDate = fullCurrentDate.slice(3, 5);
     dateFilters.date.startDate = "start/" + "1900" + "-" + "01" + "-" + "01" + "/";
     dateFilters.date.endDate = "end/" + endingYear + "-" + endingMonth + "-" + endingDate;
-
+    
     
     dateFilters.displayDate();
     dateFilters.dateRangeDisplay();
@@ -403,6 +439,7 @@ const dateFilters = {
     dateFilters.tileFiltersFunctions.activeBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
     dateFilters.tileFiltersFunctions.archivedBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
     dateFilters.actionCounts(dateFilters.date.startDate, dateFilters.date.endDate);
+    dateFilters.loaderCircleFunctions();
   }
 }
 
@@ -420,4 +457,3 @@ function runOnOpen() {
 }
 
 runOnOpen();
-
