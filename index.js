@@ -335,9 +335,12 @@ const dateFilters = {
     $('#js-deleted-boards').addClass("loader");
     $('#js-active-boards').addClass("loader");
     $('#js-archived-boards').addClass("loader");
-    
+    $('#js-activity-type').addClass("loader");
   },
   actionCounts: function(start, end) {
+    $('#loading-report').show();
+    $('.row-data').html("<p>Loading...<p>")
+    
     const settings = ({
       url: `${ACTION_COUNTS_API}${start}${end}`,
       type: 'GET',
@@ -345,55 +348,56 @@ const dateFilters = {
         let table = `
         <tr>
           <th scope="row">Comments</th>
-          <td style="text-align:right">${data.actionCounts.commentCard}</td>
+          <td class="row-data" style="text-align:right">${data.actionCounts.commentCard}</td>
         </tr>
         <tr>
           <th scope="row">Cards Created</th>
-          <td style="text-align:right">${data.actionCounts.createCard}</td>
+          <td class="row-data" style="text-align:right">${data.actionCounts.createCard}</td>
         </tr>
         <tr>
           <th scope="row">Cards Moved</th>
-          <td style="text-align:right">${data.actionCounts.moveCardFromBoard}</td>
+          <td class="row-data" style="text-align:right">${data.actionCounts.moveCardFromBoard}</td>
         </tr>
         <tr>
           <th scope="row">Cards Duplicated</th>
-          <td style="text-align:right">${data.actionCounts.copyCommentCard}</td>
+          <td class="row-data" style="text-align:right">${data.actionCounts.copyCommentCard}</td>
         </tr>
         <tr>
           <th scope="row">Cards Archived</th>
-          <td style="text-align:right">${data.actionCounts.moveCardFromBoard}</td>
+          <td class="row-data" style="text-align:right">${data.actionCounts.moveCardFromBoard}</td>
         </tr>
         <tr>
           <th scope="row">Cards Deleted</th>
-          <td style="text-align:right">${data.actionCounts.deleteCard}</td>
+          <td class="row-data" style="text-align:right">${data.actionCounts.deleteCard}</td>
         </tr>
         <tr>
           <th scope="row">Lists Created</th>
-          <td style="text-align:right">${data.actionCounts.createList}</td>
+          <td class="row-data" style="text-align:right">${data.actionCounts.createList}</td>
         </tr>
         <tr>
           <th scope="row">Lists Moved</th>
-          <td style="text-align:right">${data.actionCounts.moveListFromBoard}</td>
+          <td class="row-data" style="text-align:right">${data.actionCounts.moveListFromBoard}</td>
         </tr>
         <tr>
           <th scope="row">Lists Duplicated</th>
-          <td style="text-align:right">No Value in JSON</td>
+          <td class="row-data" style="text-align:right">No Value in JSON</td>
         </tr>
         <tr>
           <th scope="row">Lists Archived</th>
-          <td style="text-align:right">${data.actionCounts.moveListFromBoard}</td>
+          <td class="row-data" style="text-align:right">${data.actionCounts.moveListFromBoard}</td>
         </tr>
         <tr>
           <th scope="row">Lists Deleted</th>
-          <td style="text-align:right">${data.actionCounts.moveListFromBoard}</td>
+          <td class="row-data" style="text-align:right">${data.actionCounts.moveListFromBoard}</td>
         </tr>
         <tr>
           <th scope="row">Unique Labels</th>
-          <td style="text-align:right">${data.actionCounts.updateList}</td>
+          <td class="row-data" style="text-align:right">${data.actionCounts.updateList}</td>
         </tr>
         `
         Promise.all([table]).then(function(values) {
-          $("#js-activity-table").html(`${table}`)
+          $('#loading-report').hide();
+          $('#js-activity-table').html(`${table}`)
         });
       },
       error: function(e) {
@@ -414,7 +418,7 @@ const dateFilters = {
     const endingMonth = endDate.slice(9, 11);
     const endingYear = endDate.slice(4, 8);
     const endingString = endingMonth + "-" + endingDate + "-" + endingYear;
-    console.log(startingString)
+    
     $(".js-start-date-range").html(`<span>${startingString}</span>`);
     $(".js-end-date-range").html(`<span>${endingString}</span>`);
   },
