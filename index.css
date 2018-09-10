@@ -41,7 +41,6 @@ body {
 }
 .full-board {
   display: flex;
-  border: 3px solid orange;
   justify-content: space-around;
 }
 
@@ -52,7 +51,6 @@ body {
   flex-wrap: wrap;
   align-content: space-around;
   flex-direction: column;
-  border: 2px solid black;
   width: 50%;
 }
 .offset-1r {
