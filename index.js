@@ -328,7 +328,7 @@ const dateFilters = {
       $.ajax(settings)
     }
   },
-  loaderCirlceFunctions: function () {
+  loaderCircleFunctions: function () {
     $('#js-members').addClass("loader");
     $('#js-licensed-users').addClass("loader");
     $('#js-inactive-users').addClass("loader");
