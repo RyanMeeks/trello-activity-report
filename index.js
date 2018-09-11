@@ -228,6 +228,15 @@ const dateFilters = {
     $('#js-clearFilter').on('click', function() {
       $('button').removeClass('btn-outline-primary')
       $("input[type=date]").val("");
+      $('#js-members').html("<h2>-</h2>");
+      $('#js-licensed-users').html("<h2>-</h2>");
+      $('#js-inactive-users').html("<h2>-</h2>");
+      $('#js-deleted-boards').html("<h2>-</h2>");
+      $('#js-active-boards').html("<h2>-</h2>");
+      $('#js-archived-boards').html("<h2>-</h2>");
+      $('.row-data').html("<p>-</p>");
+      $('.js-start-date-range').html("-");
+      $('.js-end-date-range').html("-")
     })
   },
   tileFiltersFunctions: {
@@ -239,7 +248,7 @@ const dateFilters = {
         success: function(data){
           $('#js-members').html(`<h2>${data.activeMemberCount}</h2>`)
           $('#js-members').removeClass("loader")
-
+          
         },
         error: function(e) {
           console.log("error retrieving data");
@@ -339,6 +348,8 @@ const dateFilters = {
   },
   actionCounts: function(start, end) {
     $('#loading-report').show();
+    $('#js-clearFilter').hide();
+
     $('.row-data').html("<p>Loading...<p>")
     
     const settings = ({
@@ -398,6 +409,8 @@ const dateFilters = {
         Promise.all([table]).then(function(values) {
           $('#loading-report').hide();
           $('#js-activity-table').html(`${table}`)
+          $('#js-clearFilter').show();
+          dateFilters.clearFilter();
         });
       },
       error: function(e) {
@@ -455,7 +468,7 @@ function runOnOpen() {
   dateFilters.last7DaysFilter();
   dateFilters.last30DaysFilter();
   dateFilters.last6MonthsFilter();
-  dateFilters.clearFilter();
+  
   dateFilters.dateRangeFilter();
   dateFilters.startAllTimeFilter();
 }
