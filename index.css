@@ -126,7 +126,10 @@ body {
 #activity-type-loader {
   width: 50px;
   height: 50px;
-  
+}
+
+#js-pick-another {
+  margin-top: 50px;
 }
 
 .loader {
@@ -138,6 +141,10 @@ body {
   animation: spin 2s linear infinite;
   justify-content: space-around;
   margin: auto;
+}
+
+#filter-label {
+  margin-top: 10px;
 }
 
 @keyframes spin {

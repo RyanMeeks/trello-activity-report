@@ -46,7 +46,7 @@ const dateFilters = {
     const startyear = start.slice(6,10);
     const startMonth = start.slice(11,13 );
     const startDate = start.slice(14,16);
-    const totalStartDate = startyear*365 + startMonth*30 + startDate;
+    const totalStartDate = startyear*365 + startMonth * 30 + startDate;
     
     const endYear = end.slice(4,8);
     const endMonth = end.slice(9,11);
@@ -55,8 +55,8 @@ const dateFilters = {
     
     if (totalEndDate < totalStartDate) {
       $('#js-pick-another').show();
-        $('#js-pick-another').html('<div><p>Your "To" date must be after your "From" date</p></div>').addClass("text muted", "small");  
-        return console.log("error")  
+      $('#js-pick-another').html('<div><strong>Please select a valid date range</strong></div>').addClass("text muted", "small");
+      return console.log("error")  
     }
     else {
       $('#js-pick-another').hide();
@@ -79,7 +79,7 @@ const dateFilters = {
   },
   allTimeFilter: function () {
     $('#js-all-time').on('click', function() {
-      $('button').removeClass('btn-outline-primary')
+      $('button').removeClass('btn-outline-primary');
       $('#js-all-time').addClass('btn-outline-primary');
       dateFilters.loaderCircleFunctions();
       const fullCurrentDate = moment().format('L');
@@ -92,15 +92,7 @@ const dateFilters = {
       dateFilters.date.endDate = "end/" + endingYear + "-" + endingMonth + "-" + endingDate;
 
       $("input[type=date]").val("");
-      dateFilters.displayDate();
-      dateFilters.dateRangeDisplay();//promise all
-      dateFilters.tileFiltersFunctions.activeMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.licensedMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.inactiveMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.deletedBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.activeBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.archivedBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.actionCounts(dateFilters.date.startDate, dateFilters.date.endDate);
+      dateFilters.filterDisplay(dateFilters.date.startDate, dateFilters.date.endDate);
     })
   },
   yesterdayFilter: function () {
@@ -122,16 +114,9 @@ const dateFilters = {
       
       dateFilters.date.startDate = "start/" + startingYear + "-" + startingMonth + "-" + startingDate + "/";
       dateFilters.date.endDate = "end/" + endingYear + "-" + endingMonth + "-" + endingDate;
+      console.log(dateFilters.date.startDate, dateFilters.date.endDate)
       $("input[type=date]").val("");
-      dateFilters.displayDate();
-      dateFilters.dateRangeDisplay(); 
-      dateFilters.tileFiltersFunctions.activeMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.licensedMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.inactiveMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.deletedBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.activeBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.archivedBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.actionCounts(dateFilters.date.startDate, dateFilters.date.endDate);
+      dateFilters.filterDisplay(dateFilters.date.startDate, dateFilters.date.endDate);
     });     
   },
   last7DaysFilter: function() {
@@ -152,15 +137,7 @@ const dateFilters = {
       dateFilters.date.startDate = "start/" + startingYear + "-" + startingMonth + "-" + startingDate + "/";
       dateFilters.date.endDate = "end/" + endingYear + "-" + endingMonth + "-" + endingDate;
       $("input[type=date]").val("");
-      dateFilters.displayDate();
-      dateFilters.dateRangeDisplay();
-      dateFilters.tileFiltersFunctions.activeMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.licensedMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.inactiveMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.deletedBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.activeBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.archivedBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.actionCounts(dateFilters.date.startDate, dateFilters.date.endDate);
+      dateFilters.filterDisplay(dateFilters.date.startDate, dateFilters.date.endDate);
     })
   },
   last30DaysFilter: function() {
@@ -181,15 +158,7 @@ const dateFilters = {
       dateFilters.date.startDate = "start/" + startingYear + "-" + startingMonth + "-" + startingDate + "/";
       dateFilters.date.endDate = "end/" + endingYear + "-" + endingMonth + "-" + endingDate;
       $("input[type=date]").val("");
-      dateFilters.displayDate();
-      dateFilters.dateRangeDisplay();
-      dateFilters.tileFiltersFunctions.activeMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.licensedMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.inactiveMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.deletedBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.activeBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.archivedBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.actionCounts(dateFilters.date.startDate, dateFilters.date.endDate);
+      dateFilters.filterDisplay(dateFilters.date.startDate, dateFilters.date.endDate);
     })
   },
   last6MonthsFilter: () => {
@@ -211,17 +180,7 @@ const dateFilters = {
       dateFilters.date.startDate = "start/" + startingYear + "-" + startingMonth + "-" + startingDate + "/";
       dateFilters.date.endDate = "end/" + endingYear + "-" + endingMonth + "-" + endingDate;
       $("input[type=date]").val("");
-      dateFilters.displayDate();
-      dateFilters.dateRangeDisplay();
-      
-
-      dateFilters.tileFiltersFunctions.activeMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.licensedMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.inactiveMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.deletedBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.activeBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.tileFiltersFunctions.archivedBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-      dateFilters.actionCounts(dateFilters.date.startDate, dateFilters.date.endDate);
+      dateFilters.filterDisplay(dateFilters.date.startDate, dateFilters.date.endDate);
     })
   },
   clearFilter: function() {
@@ -349,70 +308,76 @@ const dateFilters = {
   actionCounts: function(start, end) {
     $('#loading-report').show();
     $('#js-clearFilter').hide();
-
     $('.row-data').html("<p>Loading...<p>")
-    
     const settings = ({
       url: `${ACTION_COUNTS_API}${start}${end}`,
       type: 'GET',
       success: function(data) {
-        let table = `
-        <tr>
-          <th scope="row">Comments</th>
-          <td class="row-data" style="text-align:right">${data.actionCounts.commentCard}</td>
-        </tr>
-        <tr>
-          <th scope="row">Cards Created</th>
-          <td class="row-data" style="text-align:right">${data.actionCounts.createCard}</td>
-        </tr>
-        <tr>
-          <th scope="row">Cards Moved</th>
-          <td class="row-data" style="text-align:right">${data.actionCounts.moveCardFromBoard}</td>
-        </tr>
-        <tr>
-          <th scope="row">Cards Duplicated</th>
-          <td class="row-data" style="text-align:right">${data.actionCounts.copyCommentCard}</td>
-        </tr>
-        <tr>
-          <th scope="row">Cards Archived</th>
-          <td class="row-data" style="text-align:right">${data.actionCounts.moveCardFromBoard}</td>
-        </tr>
-        <tr>
-          <th scope="row">Cards Deleted</th>
-          <td class="row-data" style="text-align:right">${data.actionCounts.deleteCard}</td>
-        </tr>
-        <tr>
-          <th scope="row">Lists Created</th>
-          <td class="row-data" style="text-align:right">${data.actionCounts.createList}</td>
-        </tr>
-        <tr>
-          <th scope="row">Lists Moved</th>
-          <td class="row-data" style="text-align:right">${data.actionCounts.moveListFromBoard}</td>
-        </tr>
-        <tr>
-          <th scope="row">Lists Duplicated</th>
-          <td class="row-data" style="text-align:right">No Value in JSON</td>
-        </tr>
-        <tr>
-          <th scope="row">Lists Archived</th>
-          <td class="row-data" style="text-align:right">${data.actionCounts.moveListFromBoard}</td>
-        </tr>
-        <tr>
-          <th scope="row">Lists Deleted</th>
-          <td class="row-data" style="text-align:right">${data.actionCounts.moveListFromBoard}</td>
-        </tr>
-        <tr>
-          <th scope="row">Unique Labels</th>
-          <td class="row-data" style="text-align:right">${data.actionCounts.updateList}</td>
-        </tr>
-        `
-        Promise.all([table]).then(function(values) {
-          $('#loading-report').hide();
-          $('#js-activity-table').html(`${table}`)
-          $('#js-clearFilter').show();
-          dateFilters.clearFilter();
-        });
-      },
+        if (data.actionCounts === null) {
+          $('#js-activity-table').html(`<tr>
+            <th scope="row">Error Fetching Data</th>
+              <td class="row-data" style="text-align:right"></td>
+            </tr>`)
+            $('#loading-report').hide();
+            $('#js-clearFilter').show();
+        } else {
+            let table = 
+              `<tr>
+                <th scope="row">Comments</th>
+                <td class="row-data" style="text-align:right">${(data.actionCounts.commentCard === undefined  ? 0: data.actionCounts.commentCard)}</td>
+              </tr>
+              <tr>
+                <th scope="row">Cards Created</th>
+                <td class="row-data" style="text-align:right">${(data.actionCounts.createCard === undefined ? 0: data.actionCounts.createCard)}</td>
+              </tr>
+              <tr>
+                <th scope="row">Cards Moved</th>
+                <td class="row-data" style="text-align:right">${(data.actionCounts.moveCardFromBoard === undefined ? 0 : data.actionCounts.moveCardFromBoard)}</td>
+              </tr>
+              <tr>
+                <th scope="row">Cards Duplicated</th>
+                <td class="row-data" style="text-align:right">${(data.actionCounts.copyCommentCard === undefined ? 0: data.actionCounts.copyCommentCard)}</td>
+              </tr>
+              <tr>
+                <th scope="row">Cards Archived</th>
+                <td class="row-data" style="text-align:right">${(data.actionCounts.moveCardFromBoard === undefined ? 0: data.actionCounts.moveCardFromBoard)}</td>
+              </tr>
+              <tr>
+                <th scope="row">Cards Deleted</th>
+                <td class="row-data" style="text-align:right">${(data.actionCounts.deleteCard === undefined ? 0: data.actionCounts.deleteCard)}</td>
+              </tr>
+              <tr>
+                <th scope="row">Lists Created</th>
+                <td class="row-data" style="text-align:right">${(data.actionCounts.createList === undefined ? 0: data.actionCounts.createList)}</td>
+              </tr>
+              <tr>
+                <th scope="row">Lists Moved</th>
+                <td class="row-data" style="text-align:right">${(data.actionCounts.moveListFromBoard === undefined ? 0: data.actionCounts.moveListFromBoard)}</td>
+              </tr>
+              <tr>
+                <th scope="row">Lists Duplicated</th>
+                <td class="row-data" style="text-align:right">${(data.actionCounts.moveListFromBoard === undefined ? 0: data.actionCounts.moveListFromBoard)}</td>
+              </tr>
+              <tr>
+                <th scope="row">Lists Archived</th>
+                <td class="row-data" style="text-align:right">${(data.actionCounts.moveListFromBoard === undefined ? 0: data.actionCounts.moveListFromBoard)}</td>
+              </tr>
+              <tr>
+                <th scope="row">Lists Deleted</th>
+                <td class="row-data" style="text-align:right">${(data.actionCounts.moveListFromBoard === undefined ? 0: data.actionCounts.moveListFromBoard)}</td>
+              </tr>
+              <tr>
+                <th scope="row">Unique Labels</th>
+                <td class="row-data" style="text-align:right">${(data.actionCounts.updateList === undefined ? 0: data.actionCounts.updateList)}</td>
+              </tr>`
+            Promise.all([table]).then(function(values) {
+              $('#loading-report').hide();
+              $('#js-activity-table').html(`${table}`)
+              $('#js-clearFilter').show();
+              dateFilters.clearFilter();
+            })
+          }
+        },
       error: function(e) {
         console.log("error retrieving data");
       }
@@ -445,19 +410,20 @@ const dateFilters = {
     const endingDate = fullCurrentDate.slice(3, 5);
     dateFilters.date.startDate = "start/" + "1900" + "-" + "01" + "-" + "01" + "/";
     dateFilters.date.endDate = "end/" + endingYear + "-" + endingMonth + "-" + endingDate;
-    
-    
+    dateFilters.filterDisplay(dateFilters.date.startDate, dateFilters.date.endDate);
+    dateFilters.loaderCircleFunctions();
+  },
+  filterDisplay: function(start, end) {
     dateFilters.displayDate();
     dateFilters.dateRangeDisplay();
-    dateFilters.tileFiltersFunctions.activeMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-    dateFilters.tileFiltersFunctions.licensedMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-    dateFilters.tileFiltersFunctions.inactiveMemberCount(dateFilters.date.startDate, dateFilters.date.endDate);
-    dateFilters.tileFiltersFunctions.deletedBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-    dateFilters.tileFiltersFunctions.activeBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-    dateFilters.tileFiltersFunctions.archivedBoardCount(dateFilters.date.startDate, dateFilters.date.endDate);
-    dateFilters.actionCounts(dateFilters.date.startDate, dateFilters.date.endDate);
-    dateFilters.loaderCircleFunctions();
-  }
+    dateFilters.tileFiltersFunctions.activeMemberCount(start, end);
+    dateFilters.tileFiltersFunctions.licensedMemberCount(start, end);
+    dateFilters.tileFiltersFunctions.inactiveMemberCount(start, end);
+    dateFilters.tileFiltersFunctions.deletedBoardCount(start, end);
+    dateFilters.tileFiltersFunctions.activeBoardCount(start, end);
+    dateFilters.tileFiltersFunctions.archivedBoardCount(start, end);
+    dateFilters.actionCounts(start, end);
+  },
 }
 
 function runOnOpen() {
@@ -468,7 +434,6 @@ function runOnOpen() {
   dateFilters.last7DaysFilter();
   dateFilters.last30DaysFilter();
   dateFilters.last6MonthsFilter();
-  
   dateFilters.dateRangeFilter();
   dateFilters.startAllTimeFilter();
 }
