@@ -26,12 +26,6 @@ body {
   /* flex-basis: 200px */
 }
 
-#tertiary {
-  flex: 1 1 0%;
-  order: 1;
-  /* flex-basis: 200px */
-}
-
 .card {
   background: #FAFAFA;
   padding: 8px;
