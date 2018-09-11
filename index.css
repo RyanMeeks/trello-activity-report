@@ -85,6 +85,28 @@ body {
   display: flex;
 }
 
+.btn-primary {
+  background-color: #522398 !important;
+  border-color: #522398 !important;
+}
+.btn-primary:hover {
+  color: white;
+  background-color: #331560 !important;
+  border-color: #522398 !important;
+}
+.btn-outline-primary:hover {
+  color: #fff !important;
+  background-color: #331560 !important;
+  border-color: #331560 !important;
+}
+
+.btn-outline-primary {
+  color: #522398 !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: #522398 !important;
+}
+
 .board {
   padding: 20px;
 }
@@ -114,8 +136,8 @@ body {
 }
 
 .loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border: 16px solid #f3f3f3; 
+  border-top: 16px solid #522398; 
   border-radius: 50%;
   width: 50px;
   height: 50px;

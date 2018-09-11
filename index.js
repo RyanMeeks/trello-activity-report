@@ -55,7 +55,7 @@ const dateFilters = {
     
     if (totalEndDate < totalStartDate) {
       $('#js-pick-another').show();
-        $('#js-pick-another').html('<p>Your "To" date must be after your "From" date</p>');  
+        $('#js-pick-another').html('<div><p>Your "To" date must be after your "From" date</p></div>').addClass("text muted", "small");  
         return console.log("error")  
     }
     else {
